@@ -35,8 +35,6 @@ class AuthController extends Controller
             return response()->json(['token' => $token]);
         } catch (Throwable $throwable) {
             Log::debug('Register error: ' . $throwable->getMessage());
-
-            return response()->json([$throwable->getMessage()], 400);
         }
 
         return response()->json([], 400);

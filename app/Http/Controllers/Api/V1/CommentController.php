@@ -60,8 +60,8 @@ class CommentController extends Controller
             $user->comments()->create(
                 [
                     'post_id' => $post->id,
-                    'author' => $request->get('author') ?? $user->name,
-                    'content' => $request->get('content') ?? $user->name,
+                    'author' => $request->get('author'),
+                    'content' => $request->get('content')
                 ]
             );
 
