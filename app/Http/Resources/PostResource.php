@@ -10,6 +10,7 @@ class PostResource extends JsonResource
 {
     /**
      * PostResource constructor.
+     *
      * @param Post $post
      */
     public function __construct(Post $post)
@@ -20,7 +21,7 @@ class PostResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function toArray($request): array

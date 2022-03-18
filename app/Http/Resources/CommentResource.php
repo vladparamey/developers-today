@@ -10,6 +10,7 @@ class CommentResource extends JsonResource
 {
     /**
      * PostResource constructor.
+     *
      * @param Comment $comment
      */
     public function __construct(Comment $comment)
@@ -20,7 +21,7 @@ class CommentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function toArray($request): array

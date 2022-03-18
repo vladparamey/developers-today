@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory;
+    use Sluggable;
 
     /**
      * @var array
@@ -37,6 +38,14 @@ class Post extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    /**
      * @return array
      */
     public function getComments(): array
@@ -48,6 +57,8 @@ class Post extends Model
                 'id' => $comment->id,
                 'author' => $comment->author,
                 'content' => $comment->content,
+                'created_at' => $comment->created_at,
+                'updated_at' => $comment->updated_at
             ];
         }
 

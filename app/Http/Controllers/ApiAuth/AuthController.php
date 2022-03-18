@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiAuth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -14,26 +13,26 @@ use Throwable;
 
 class AuthController extends Controller
 {
-
     /**
      * 1.1 Registration
      *
-     * @param RegisterRequest $request
+     * @param  RegisterRequest $request
      * @return JsonResponse
      */
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
-            $user = User::create([
+            $user = User::create(
+                [
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
-            ]);
+                ]
+            );
 
             $token = $user->createToken(env('APP_NAME'))->accessToken;
 
             return response()->json(['token' => $token]);
-
         } catch (Throwable $throwable) {
             Log::debug('Register error: ' . $throwable->getMessage());
         }
@@ -45,7 +44,7 @@ class AuthController extends Controller
     /**
      * 1.2 Login
      *
-     * @param LoginRequest $request
+     * @param  LoginRequest $request
      * @return JsonResponse
      */
     public function login(LoginRequest $request): JsonResponse
@@ -61,7 +60,6 @@ class AuthController extends Controller
 
                 return response()->json(['token' => $token]);
             }
-
         } catch (Throwable $throwable) {
             Log::debug('Login error: ' . $throwable->getMessage());
         }
@@ -78,13 +76,14 @@ class AuthController extends Controller
     {
         try {
             $token = request()->user()->token();
+
             $token->revoke();
 
-            return response()->json(['code' => 200, 'message' => 'SUCCESS']);
+            return response()->json(['success' => true]);
         } catch (Throwable $throwable) {
             Log::debug('Logout error: ' . $throwable->getMessage());
         }
 
-        return response()->json(['message' => 'ERROR'], 400);
+        return response()->json(['success' => false], 400);
     }
 }

@@ -37,6 +37,7 @@ Route::prefix('v1')->group(function () {
             ->except([
                 'show'
             ]);
+        Route::post('posts/vote', [PostController::class, 'vote']);
     });
 
     Route::get('posts/{post}', [PostController::class, 'show']);
