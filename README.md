@@ -14,3 +14,9 @@
 3) Create .env file and add credentials (connection to database)
 4) php artisan key:generate
 5) php artisan migrate
+
+### Console command
+
+1) php artisan posts:update-votes<br>
+   (job running once a day to reset post upvotes count)<br>
+   We can use cron on hosting to call this command.
